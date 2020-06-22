@@ -1,0 +1,22 @@
+import json
+with open("Doc_to_be_converted.json") as json_file:
+    r = json.load(json_file)
+print(r)
+
+import xml.etree.cElementTree as ET
+
+root = ET.Element("root")
+ET.SubElement(root, "userId").text = str(r["userId"])
+ET.SubElement(root, "id").text = str(r["id"])
+ET.SubElement(root, "title").text = r["title"]
+ET.SubElement(root, "body").text = r["body"] ## Create sub element if required
+
+'''
+body = ET.SubElement(root, "body") ## remove line 12 and use from here.
+for i in r["body"]:
+         ET.SubElement(body, "1st.elem").text = i[1st.elem]
+         ET.SubElement(body, "2nd.elem").text = i[2nd.elem]
+'''
+
+tree = ET.ElementTree(root)
+tree.write("New_doc.xml")
